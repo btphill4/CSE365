@@ -17,12 +17,12 @@ int main(int argc, char** args)
     char* cTxt = new char[sSize];
         for(int i = 0; i < sSize; i++)
         {
-            cTxt[i] = sTxt[i];
+            cTxt[i] += sTxt[i-1];
         }
     
     for(int i = 0; i < sSize; i++)                    //iterate the array starting with the max size 1 less than cTxt
     {
-    cout << cTxt[i] << endl;
+    cout << cTxt[i];
     }
 
    return 0;
