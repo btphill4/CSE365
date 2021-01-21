@@ -1,0 +1,16 @@
+wechall name: btphill4
+
+bandit 0: ran the ls command to check what files are in the current directory, then used cat readme to display the readme file that was found boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+
+bandit 1: ran ls command to look for the file "-" and it wouldn't open with cat - so I used cat < - and it displayed the file contents CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+
+bandit 2: ran the ls command and used cat "spaces in this filename" to open the file UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+
+bandit 3: I ran ls and found /inhere and then ran ls and found no files. I ran ls -al and it showed .hidden so i ran cat .hidden pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+
+bandit 4: I ran ls and found the /inhere directory then ran ls -al and found several files all starting with -file. so I ran cat ./file* and it opened them all and it displayed the key in the symbols koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+
+bandit 5: I ran the command ls and found the /inhere. it had a lot of directories so i ran the command find . -size 1033c to find any file that is 1033 bytes in size which was /maybehere07/file2 which I ran cat ./maybehere07/.file2 DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+
+ssh -p 2220 bandit3@bandit.labs.overthewire.org
+WECHALLUSER="btphill4" WECHALLTOKEN="5AEF9-EE0D6-8C26A-B1433-36566-2AEBC" wechall 

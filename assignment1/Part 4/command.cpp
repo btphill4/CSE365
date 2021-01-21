@@ -4,26 +4,26 @@
 
 using namespace std;
 
-int main(int argc, char** args)
+int main(int argc, char** argv)
 {
-    string sTxt = "Testing string so yuh";
-   /* while(cin >> sTxt)
-    {
-        getline(cin,sTxt);
-    }*/
-    
-    int sSize = sTxt.length(); 
+    char arr[argc + 1]; 
 
-    char* cTxt = new char[sSize];
-        for(int i = 0; i < sSize; i++)
-        {
-            cTxt[i] += sTxt[i-1];
-        }
-    
-    for(int i = 0; i < sSize; i++)                    //iterate the array starting with the max size 1 less than cTxt
+    //print number of arguments(argc)
+    cout << argc << endl;
+    int size = sizeof(argv);
+
+    for(int i = 1; i <= argc; i++)
     {
-    cout << cTxt[i];
+        cout << argv[i] << " ";//<< endl;
     }
+    cout << endl;
+
+
+    /*while(size > 0){
+        cout << argv << endl;
+        size--;
+    }*/ 
+    
 
    return 0;
 }

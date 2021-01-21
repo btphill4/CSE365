@@ -1,3 +1,4 @@
+cc = gcc 
 all: c_program
 
 c_program: c_program.c 

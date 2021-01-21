@@ -16,9 +16,9 @@ CFLAGS=-c -Wall
 all:  command
 	
 command: command.cpp 
-	$(CC) command.cpp  -o command
+	$(CC) command.cpp -o command
 
-c_program.o: command.cpp 
+command.o: command.cpp 
 	$(CC) $(CFLAGS) command.cpp 
 
 clean:
