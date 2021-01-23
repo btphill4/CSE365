@@ -4,38 +4,25 @@
 
 using namespace std;
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
-    char arr[sizeof(argv)]; 
+    //print number of arguments(argc) with less than 
+    cout << argc - 1 << endl;
 
-    //print number of arguments(argc)
-    cout << argc << endl;
-    
-    int size = sizeof(argc);
-    int m = size;
-   //cout << "Size:" << size << endl;
-
-    do{
-        cout << m << endl;
-        cout << argv[m];
-        m--;
-    }while(m =! 0);
-
-
-    for(int i = 1; i <= argc; i++)
+    //converts argv[] into a string pointer array
+    string *temp = new string[argc];
+    for(int i = 0; i < argc; i++)
     {
-    
-        //cout << argv[i] << " ";//<< endl;
-        
+        temp[i] = argv[i];
     }
-    cout << endl << size;
 
-    
+    //prints the array
+    for(int i = argc; i >= 1; i--)
+    {
+        cout << temp[i] << " ";
+    }
 
-    /*while(size > 0){
-        cout << argv << endl;
-        size--;
-    }*/ 
+   //cout << "Size:" << size << endl;
     
 
    return 0;

@@ -1,4 +1,3 @@
+
 python_program: python_program.py
-    touch python_program
-    cat python_program
-    grep -in “python_program” python_program.txt
+   

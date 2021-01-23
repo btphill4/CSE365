@@ -1,4 +1,5 @@
 Brandon Phillips
 btphill4
 
-My program works by 
+My program works by using c++ to take the command line arguments as int argc
+and 
