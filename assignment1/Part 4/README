@@ -1,5 +1,4 @@
 Brandon Phillips
-btphill4
+1215988930
 
-My program works by using c++ to take the command line arguments as int argc
-and 
+My program works by using c++ to take the command line arguments as int argc and char* argv[]. I used argc - 1 to print the number of inputs, subtracting the ./command input. I then created a string *temp array and copied the words or characters from the character array and adding a space between each element so it follows the same format as the shown output. I then created a for loop to set the iterative variable to i = argc so that it can iterate from the end of the temp array(size of argc). The loop printed each element until it reached 1, so that it doesn't print the ./command in the output. 
