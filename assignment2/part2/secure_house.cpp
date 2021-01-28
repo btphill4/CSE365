@@ -5,6 +5,16 @@
 
 using namespace std;
 
+/** Example input
+INSERT KEY adam key
+TURN KEY adam
+ENTER HOUSE adam
+INSERT KEY pat foobar
+TURN KEY pat
+ENTER HOUSE pat
+WHO'S INSIDE?
+
+*/
 
 /** Methods
  * insertKey()
@@ -66,7 +76,9 @@ string whoseInside()
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
+ 
+    
     
 }
