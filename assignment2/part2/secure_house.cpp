@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
 
     while (getline(cin, line))
     {
-
+        cout << line << endl;
     }
 
 
