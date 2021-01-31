@@ -56,19 +56,21 @@ vector<string> house;
 string pKey;
 
 //Key Methods
-string returnKeys(){
+void returnKeys(){
     for(int i = 0; i <= sizeof(key); i++){
-        return key[i];
+        cout << key[i] << ", ";
     }
 }
 string insertKey(){
-    return "Key Inserted";
+    string keyI = "Key Inserted";
+    return keyI;
 }
 
-string turnKey(){
+void turnKey(){
     for(int i = 0; i < sizeof(key);i++){
         if(pKey == key[i])
         {
+            //return "Success" + person + "TURNS KEY" + key;
             cout << "Success " << person << "TURNS KEY" << key;
         }
     }
@@ -90,23 +92,23 @@ string turnKey(){
     }
 } */
 
-string whoseInside()
+void whoseInside()
 {
     if (house.empty())
     {
-        return "NOBODY HOME";
+        cout << "NOBODY HOME";
     } 
     else 
         for(int i = 0; i < house.size(); i++)
         {
-            return house.at(i);
+            cout << house.at(i);
         }
 }
 
 
 int main(int argc, char* argv[])
 {
-    int size = sizeof(argv);
+    int size = argc;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
     string line;
 
@@ -122,5 +124,5 @@ int main(int argc, char* argv[])
         cout << line << endl;
     }
 
-
+    return 0;
 }
