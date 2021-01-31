@@ -76,8 +76,8 @@ void turnKey(){
     }
 }
 
-/*bool canEnter(){
-
+/*bool canEnter(person){
+    return canEnter(person);
 }*/
 
 /*string enter()
@@ -111,17 +111,27 @@ int main(int argc, char* argv[])
     int size = argc;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
     string line;
+    
 
-    for(int i = 2; i <= size; i++){
-    key[i] = argv[2];
-    cout << key;
+    for(int i = 2; i <= size; i++)
+    {
+        key[i] = argv[2];
+        cout << key;
     }
 
     fireFighterKey = key[sizeof(key) + 1];
 
     while (getline(cin, line))
     {
-        cout << line << endl;
+        string temp[sizeof(line)];
+        int sizeL = sizeof(line);
+        //cout << line << endl;
+        for(int i = 0; i < sizeL; i++)
+        {
+            temp[i] = line[i];
+            cout << temp[i] << endl;
+        }
+
     }
 
     return 0;
