@@ -132,7 +132,36 @@ int main(int argc, char* argv[])
             cout << temp[i] << endl;
         }
 
+
+        //INSERT KEY adam key
+        if(temp[1] == "INSERT")
+        {
+            
+        }
+
+        //TURN KEY adam
+        if(temp[1] == "TURN")
+        {
+
+        }
+
+        //ENTER HOUSE adam
+        if(temp[1] == "ENTER")
+        {
+
+        }
+
+        //WHO'S INSIDE?
+        if(temp[1] == "WHO'S")
+        {
+
+        }
+        
+
+
     }
+
+    
 
     return 0;
 }
