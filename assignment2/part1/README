@@ -1,1 +1,10 @@
 wechall name: btphill4
+
+Bandit6: I used ls -al initially to look through the directories but found nothing that was useful. I used the find command and looked for files created by bandit7 and bandit6 by using find / -user bandit7 -group bandit6 -size 33c. It searched and returned Permission denied to several places and only had one place that showed me where the file was located at and I used cat /var/lib/dpkg/info/bandit7.password and it returned the password. HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+
+Bandit7: I tried the ls command and found the data.txt file. I used cat data.txt and it loaded the list of entries, so I tried sort data.txt, but the terminal didn't reach the line I was searching for. I then used cat data.txt | grep "millionth" to search data.txt for the word "millionth." It returned the line with the password. cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+
+Bandit8: 
+
+ssh -p 2220 bandit8@bandit.labs.overthewire.org
+WECHALLUSER="btphill4" WECHALLTOKEN="5AEF9-EE0D6-8C26A-B1433-36566-2AEBC" wechall 

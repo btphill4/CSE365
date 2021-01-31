@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector> 
+#include<string.h>      
+
 
 using namespace std;
 
@@ -106,6 +108,7 @@ int main(int argc, char* argv[])
 {
     int size = sizeof(argv);
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
+    string line;
 
     for(int i = 2; i <= size; i++){
     key[i] = argv[2];
@@ -114,7 +117,10 @@ int main(int argc, char* argv[])
 
     fireFighterKey = key[sizeof(key) + 1];
 
+    while (getline(cin, line))
+    {
 
+    }
 
 
 }
