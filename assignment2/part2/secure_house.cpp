@@ -48,7 +48,7 @@ ACCESS ALLOWED
 pat
 */
 
-
+/*
 //Variables
 string* key = new string[200]; 
 string person;
@@ -75,7 +75,7 @@ void turnKey(){
         }
     }
 }
-
+*/
 /*bool canEnter(person){
     return canEnter(person);
 }*//*
@@ -91,7 +91,7 @@ void enter()
        cout << "ACCESS DENIED" << endl;
     }
 } */
-
+/*
 void whoseInside()
 {
     if (house.empty())
@@ -103,24 +103,28 @@ void whoseInside()
         {
             cout << house.at(i);
         }
-}
+}*/
 
 
 int main(int argc, char* argv[])
 {
+    string* key = new string[argc]; 
+    string person;
+    string pKey;
     int size = argc;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
     string line;
     vector<string> home;
     int result = 0;
 
-    for(int i = 2; i <= size; i++)
+    //./secure_house selina foobar test yo keys
+  /*  for(int i = 2; i <= size; i++)
     {
         key[i] = argv[2];
         cout << key;
-    }
+    }*/
 
-    fireFighterKey = key[sizeof(key) + 1];
+    //fireFighterKey = key[sizeof(key) + 1];
 
     while (getline(cin, line))
     {
@@ -130,12 +134,12 @@ int main(int argc, char* argv[])
         for(int i = 0; i < sizeL; i++)
         {
             temp[i] = line[i];
-            cout << temp[i] << endl;
+            //cout << temp[i] << endl;
         }
-
-
+            cout << *temp << endl;
+        
         //INSERT KEY adam key
-        if(temp[1] == "INSERT")
+        if(temp[0] == "INSERT")
         {
             //set person's key to element 3 in temp
             pKey = temp[3];
@@ -144,7 +148,7 @@ int main(int argc, char* argv[])
         }
 
         //TURN KEY adam
-        if(temp[1] == "TURN")
+        if(temp[0] == "TURN")
         {
            
             //turnKey()?
@@ -175,7 +179,7 @@ int main(int argc, char* argv[])
         }
 
         //ENTER HOUSE adam
-        if(temp[1] == "ENTER")
+        if(temp[0] == "ENTER")
         {
             //if canEnter() == true
             home.push_back(person);
@@ -185,7 +189,7 @@ int main(int argc, char* argv[])
         }
 
         //WHO'S INSIDE?
-        if(temp[1] == "WHO'S")
+        if(temp[0] == "WHO'S")
         {
             //if empty
             if (home.empty())
@@ -202,7 +206,7 @@ int main(int argc, char* argv[])
         }
         
 
-
+       line = "";
     }
 
     
