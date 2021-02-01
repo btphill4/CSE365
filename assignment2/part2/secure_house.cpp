@@ -128,6 +128,7 @@ int main(int argc, char* argv[])
 
     while (getline(cin, line))
     {
+        
         string temp[sizeof(line)];
         int sizeL = sizeof(line);
         //cout << line << endl;
@@ -206,7 +207,7 @@ int main(int argc, char* argv[])
         }
         
 
-       line = "";
+       line.clear();
     }
 
     
