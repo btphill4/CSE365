@@ -78,9 +78,9 @@ void turnKey(){
 
 /*bool canEnter(person){
     return canEnter(person);
-}*/
+}*//*
 
-/*string enter()
+void enter()
 {
     if(canEnter() == true)
     {
@@ -111,7 +111,8 @@ int main(int argc, char* argv[])
     int size = argc;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
     string line;
-    
+    vector<string> home;
+    int result = 0;
 
     for(int i = 2; i <= size; i++)
     {
@@ -136,24 +137,67 @@ int main(int argc, char* argv[])
         //INSERT KEY adam key
         if(temp[1] == "INSERT")
         {
-            
+            //set person's key to element 3 in temp
+            pKey = temp[3];
+            //KEY key INSERTED BY adam
+            cout << "KEY " << pKey << " INSERTED BY " << temp[2] << endl;
         }
 
         //TURN KEY adam
         if(temp[1] == "TURN")
         {
+           
+            //turnKey()?
 
+            for(int i = 0; i <= sizeL; i++)
+            {
+                //FAILURE adam UNABLE TO TURN KEY key
+                if(pKey != key[i])
+                {
+                    //if fails result = 0
+                    result = 0; 
+                }
+                //SUCCESS pat TURNS KEY foobar
+                if(pKey == key[i])
+                {
+                    //if passes result = 1
+                    result = 1; 
+                }
+            }
+            if(result = 0)
+            {
+                cout << "FAILURE" << temp[2] << " UNABLE TO TURN KEY " << pKey << endl;
+            }
+            if(result = 1)
+            {
+                cout << "SUCCESS " << temp[2] << "TURNS KEY" << pKey << endl;
+            }
         }
 
         //ENTER HOUSE adam
         if(temp[1] == "ENTER")
         {
+            //if canEnter() == true
+            home.push_back(person);
 
+            //if canEnter() == false
+            cout << "ACCESS DENIED";
         }
 
         //WHO'S INSIDE?
         if(temp[1] == "WHO'S")
         {
+            //if empty
+            if (home.empty())
+            {
+                cout << "NOBODY HOME";
+            } 
+            //if not empty
+            else 
+                for(int i = 0; i < home.size(); i++)
+                {
+                    cout << home.at(i);
+                }
 
         }
         
