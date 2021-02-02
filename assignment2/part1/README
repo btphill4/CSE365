@@ -4,7 +4,11 @@ Bandit6: I used ls -al initially to look through the directories but found nothi
 
 Bandit7: I tried the ls command and found the data.txt file. I used cat data.txt and it loaded the list of entries, so I tried sort data.txt, but the terminal didn't reach the line I was searching for. I then used cat data.txt | grep "millionth" to search data.txt for the word "millionth." It returned the line with the password. cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 
-Bandit8: 
+Bandit8: To pass this level I tried the ls command and found data.txt. It had hundreds of lines of text so I used the uniq -u command doing cat data.txt | sort | uniq -u which searched the txt file for a unique line. UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 
-ssh -p 2220 bandit8@bandit.labs.overthewire.org
+Bandit 9: I initiually used ls to find data.txt. Using cat data.txt returned me a on of unreadable letters so I searched through lines using "=". I used strings data.txt | grep '='. It searched all the strings for "=" and it displayed a few different lines of results. truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+
+Bandit 10: Using ls I found data.txt again. The problem mentioned it was base64 for I used base64 -d data.txt to read the data file which returned me the password. IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+
+ssh -p 2220 bandit11@bandit.labs.overthewire.org
 WECHALLUSER="btphill4" WECHALLTOKEN="5AEF9-EE0D6-8C26A-B1433-36566-2AEBC" wechall 
