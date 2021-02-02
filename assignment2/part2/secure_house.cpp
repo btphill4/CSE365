@@ -108,14 +108,20 @@ void whoseInside()
 
 int main(int argc, char* argv[])
 {
+    //Key variables
     string* key = new string[argc]; 
+
+    ///People variables
     string person;
     string pKey;
-    int size = argc;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
-    string line;
     vector<string> home;
+
+    //code variables
+    int size = argc;
+    string line;
     int result = 0;
+    
 
     //./secure_house selina foobar test yo keys
   /*  for(int i = 2; i <= size; i++)
@@ -129,19 +135,23 @@ int main(int argc, char* argv[])
     while (getline(cin, line))
     {
         
-        string temp[sizeof(line)];
-        int sizeL = sizeof(line);
-        //cout << line << endl;
-        for(int i = 0; i < sizeL; i++)
-        {
-            temp[i] = line[i];
-            //cout << temp[i] << endl;
-        }
-            cout << *temp << endl;
-        
+        string temp;
+        string enter = "ENTER";
+        string insert = "INSERT";
+        string turn = "TURN";
+        string whos = "WHO'S";
+       
+        temp = line;
+    
+        //prints line        
+        //cout << temp << endl;
+
+
         //INSERT KEY adam key
-        if(temp[0] == "INSERT")
+        if(temp.find(insert) != std::string::npos)
         {
+            cout << insert << endl;
+
             //set person's key to element 3 in temp
             pKey = temp[3];
             //KEY key INSERTED BY adam
@@ -149,12 +159,11 @@ int main(int argc, char* argv[])
         }
 
         //TURN KEY adam
-        if(temp[0] == "TURN")
+        else if(temp.find(turn) != std::string::npos)
         {
-           
-            //turnKey()?
+            cout << "TURN" << endl;
 
-            for(int i = 0; i <= sizeL; i++)
+             for(int i = 0; i <= argc; i++)
             {
                 //FAILURE adam UNABLE TO TURN KEY key
                 if(pKey != key[i])
@@ -167,6 +176,7 @@ int main(int argc, char* argv[])
                 {
                     //if passes result = 1
                     result = 1; 
+                    break;
                 }
             }
             if(result = 0)
@@ -177,36 +187,42 @@ int main(int argc, char* argv[])
             {
                 cout << "SUCCESS " << temp[2] << "TURNS KEY" << pKey << endl;
             }
+            
         }
 
+
         //ENTER HOUSE adam
-        if(temp[0] == "ENTER")
-        {
+        if(temp.find(enter) != std::string::npos)
+        {   
+            cout << enter << endl;
+
             //if canEnter() == true
             home.push_back(person);
 
             //if canEnter() == false
-            cout << "ACCESS DENIED";
+            cout << "ACCESS DENIED" << endl;
         }
 
-        //WHO'S INSIDE?
-        if(temp[0] == "WHO'S")
+
+        if(temp.find(whos) != std::string::npos)
         {
-            //if empty
+            cout << whos << endl;
+
+             //if empty
             if (home.empty())
             {
-                cout << "NOBODY HOME";
+                cout << "NOBODY HOME" << endl;
             } 
             //if not empty
             else 
                 for(int i = 0; i < home.size(); i++)
                 {
-                    cout << home.at(i);
+                    cout << home.at(i) << ", ";
                 }
 
         }
-        
 
+       
        line.clear();
     }
 
