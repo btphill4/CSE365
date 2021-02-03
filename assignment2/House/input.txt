@@ -1,0 +1,18 @@
+INSERT KEY cosmo key1
+ENTER HOUSE cosmo
+INSERT KEY Mary key2
+ENTER HOUSE Mary
+WHO'S INSIDE?
+LEAVE HOUSE Mary
+INSERT KEY officer_with_warrant_jackoff POLICE_SECRET_KEY
+ENTER HOUSE officer_with_warrant_jackoff
+INSERT KEY firemen FIREFIGHTER_SECRET_KEY
+ENTER HOUSE firemen
+CHANGE LOCKS cosmo key3 key4 key5
+INSERT KEY ghost key4
+LEAVE HOUSE billy
+ENTER HOUSE ghost
+INSERT KEY bee key5
+ENTER HOUSE bee
+WHO'S INSIDE?
+DO STUFF
