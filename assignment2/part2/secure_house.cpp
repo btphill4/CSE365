@@ -3,7 +3,8 @@
 #include <iostream>
 #include <vector> 
 #include<string.h>      
-
+#include "houseKeys.h"
+#include "people.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ WHO'S INSIDE?
 */
 
 /** 
-Given the input:
+Given input:
 INSERT KEY adam key
 TURN KEY adam
 ENTER HOUSE adam
@@ -107,12 +108,12 @@ void whoseInside()
 
 
 int main(int argc, char* argv[])
-{
-    //Key variables
-    string* key = new string[argc]; 
+{   
+    houseKeys *keys = new houseKeys(); 
+    people *home = new people();
 
     ///People variables
-    string person;
+    string owner = argv[1];
     string pKey;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
     vector<string> home;
@@ -123,18 +124,16 @@ int main(int argc, char* argv[])
     int result = 0;
     
 
-    //./secure_house selina foobar test yo keys
-  /*  for(int i = 2; i <= size; i++)
+    //./secure_house selina foobar 
+    for(int i = 2; i <= argc; i++)
     {
-        key[i] = argv[2];
-        cout << key;
-    }*/
-
-    //fireFighterKey = key[sizeof(key) + 1];
+        keys -> addKey(argv[i]);
+    }
+    keys->addKey("FIREFIGHTER_SECRET_KEY");
 
     while (getline(cin, line))
     {
-        
+        string person;
         string temp;
         string enter = "ENTER";
         string insert = "INSERT";
@@ -197,7 +196,7 @@ int main(int argc, char* argv[])
             cout << enter << endl;
 
             //if canEnter() == true
-            home.push_back(person);
+            home->addPeople(person);
 
             //if canEnter() == false
             cout << "ACCESS DENIED" << endl;
@@ -208,17 +207,7 @@ int main(int argc, char* argv[])
         {
             cout << whos << endl;
 
-             //if empty
-            if (home.empty())
-            {
-                cout << "NOBODY HOME" << endl;
-            } 
-            //if not empty
-            else 
-                for(int i = 0; i < home.size(); i++)
-                {
-                    cout << home.at(i) << ", ";
-                }
+            home->whosHome();
 
         }
 

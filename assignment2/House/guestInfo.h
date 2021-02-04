@@ -48,13 +48,13 @@ public:
      else
       {
        if(i<guests.size()-1)
-	{
+	      {
          cout << guests[i] << ", ";
         }
        else
-	{
-	 cout << guests[i] << endl;
-	}
+        {
+          cout << guests[i] << endl;
+        }
       }
     }
    }
