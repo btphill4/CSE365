@@ -10,5 +10,5 @@ Bandit 9: I initiually used ls to find data.txt. Using cat data.txt returned me 
 
 Bandit 10: Using ls I found data.txt again. The problem mentioned it was base64 for I used base64 -d data.txt to read the data file which returned me the password. IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 
-ssh -p 2220 bandit11@bandit.labs.overthewire.org
+ssh -p 2220 bandit6@bandit.labs.overthewire.org
 WECHALLUSER="btphill4" WECHALLTOKEN="5AEF9-EE0D6-8C26A-B1433-36566-2AEBC" wechall 
