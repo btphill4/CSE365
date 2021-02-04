@@ -1,33 +1,13 @@
 #include <stdio.h>
+#include <sstream>
 #include <stdlib.h>
 #include <iostream>
 #include <vector> 
-#include<string.h>      
+#include <string>      
 #include "houseKeys.h"
 #include "people.h"
 
 using namespace std;
-
-/** Example input
-INSERT KEY adam key
-TURN KEY adam
-ENTER HOUSE adam
-INSERT KEY pat foobar
-TURN KEY pat
-ENTER HOUSE pat
-WHO'S INSIDE?
-
-*/
-
-/** Methods
- * insertKey()
- * turnKey()
- * enter()
- * hasKey()
- * FIREFIGHTER_SECRET_KEY
- * whoseInside()
- * peopleInHouse()
-*/
 
 /** 
 Given input:
@@ -49,81 +29,86 @@ ACCESS ALLOWED
 pat
 */
 
-/*
-//Variables
-string* key = new string[200]; 
-string person;
-vector<string> house;
-string pKey;
+//key vector
+houseKeys *keys = new houseKeys(); 
 
-//Key Methods
-void returnKeys(){
-    for(int i = 0; i <= sizeof(key); i++){
-        cout << key[i] << ", ";
-    }
-}
-string insertKey(){
-    string keyI = "Key Inserted";
-    return keyI;
-}
+//get name for insert method
+string getName(vector<string> currName)
+ {
+  string toReturn = currName[2];
+  return toReturn;
+ }
 
-void turnKey(){
-    for(int i = 0; i < sizeof(key);i++){
-        if(pKey == key[i])
-        {
-            //return "Success" + person + "TURNS KEY" + key;
-            cout << "Success " << person << "TURNS KEY" << key;
-        }
-    }
-}
-*/
-/*bool canEnter(person){
-    return canEnter(person);
-}*//*
-
-void enter()
-{
-    if(canEnter() == true)
+ //get key Method and add to key vector
+string getKey(vector<string> currKey, int x)
+ {
+  if(x == 0) //Used in conjunction with CHANGE LOCKS command to add new keys
+  {
+   for(int i=3; i<currKey.size();i++)
     {
-        house.push_back(person);
+     keys->addKey(currKey[i]);
+    }
+   return "Added";
+   }
+  else //Used to simply return the name of the key a guest enters
+  {
+  string toReturn = currKey[3]; 
+  return toReturn;
+  }
+ }
+
+//returns the actions in the command
+string getAction(vector<string> currAction)
+{
+    string toReturn;
+    if(currAction[0] == "EXIT")
+    {
+        toReturn = "EXIT";
+        return toReturn;
     }
     else
     {
-       cout << "ACCESS DENIED" << endl;
+        toReturn = currAction[0] + currAction[1];
+        return toReturn;
     }
-} */
-/*
-void whoseInside()
-{
-    if (house.empty())
-    {
-        cout << "NOBODY HOME";
-    } 
-    else 
-        for(int i = 0; i < house.size(); i++)
-        {
-            cout << house.at(i);
-        }
-}*/
+}
 
+ //read the input and parse it to a string vector
+ vector<string> inputToVector(string userInput)
+ {
+    string temp;
+    stringstream sStream(userInput);
+    vector<string> inputVector;
+    while(sStream >> temp)
+    {
+        inputVector.push_back(temp);
+    }
+    return inputVector;
+ }
 
 int main(int argc, char* argv[])
 {   
-    houseKeys *keys = new houseKeys(); 
+    //no keys entered error
+    if(argc <= 2)
+    {
+        cout << "ERROR" << endl;
+    }
+
+    //vector variables
     people *home = new people();
 
     ///People variables
-    string owner = argv[1];
+    string owner;// = argv[1];
     string pKey;
+    string name;
     string fireFighterKey = "FIREFIGHTER_SECRET_KEY";
-    vector<string> home;
 
     //code variables
-    int size = argc;
     string line;
     int result = 0;
+    string lastCommand;
     
-
+    //initialize house owner and keys
     //./secure_house selina foobar 
     for(int i = 2; i <= argc; i++)
     {
@@ -131,6 +116,135 @@ int main(int argc, char* argv[])
     }
     keys->addKey("FIREFIGHTER_SECRET_KEY");
 
+
+    vector<string> command = inputToVector(line);
+
+    lastCommand = getAction(command);
+    int stop = 0; //stop command for terminal
+    if(lastCommand == "EXIT")
+    {
+        stop = 1;
+    }
+
+    bool found = false; //boolean to check keys
+
+    string toEnter;
+
+    while(stop == 0)
+    {
+        //insert key command
+        if(lastCommand == "INSERT")
+        {
+            name = getName(command);
+            pKey = getKey(command,1);
+
+            //Insert key output KEY key INSERTED BY adam
+            cout <<"KEY " << pKey << " INSERTED BY " << name;
+        
+            
+        }
+
+        //TURN KEY <user_name>
+        else if(lastCommand == "TURN")
+        {
+            //name = getName(command);
+            //pKey = getKey(command,1);
+
+            //search for key
+            found = keys->findKey(pKey,0);
+
+            //if found sets to toEnter to name of person
+            if(found == true)
+            {
+                toEnter = name;
+            }
+
+            if(found == true)
+            {
+                found = false;
+                if(name == toEnter)
+                {
+                    //add name to home vector
+                    cout << "SUCCESS " << name << "TURNS KEY " << pKey << endl;
+                    //home->addPeople(toEnter);
+                }
+                //access denied if you were not the last person to insert a key
+                else
+                {
+                    cout << "ACCESS DENIED" << endl;
+                }
+            }
+            //access denied if key is not found
+            else
+            {
+                cout << "ACCESS DENIED" << endl;
+            }
+        }
+
+        //ENTER HOUSE <username>
+        else if(lastCommand == "ENTER")
+        {
+            name = getName(command);
+            if(name == toEnter)
+            {
+                cout << "ACCESS ALLOWED" << endl;
+                home -> addPeople(toEnter);
+            }
+            else
+            {
+                cout << "ACCESS DENIED" << endl;
+            }
+        }
+
+        //WHO'S INSIDE?
+        else if(lastCommand == "WHO'S")
+        {
+            home -> whosHome(); 
+        }
+
+        //LEAVE HOUSE <user_name>
+        else if(lastCommand == "LEAVE")
+        {
+            name = getName(command);
+            bool found = home->findPerson(name,1);
+            if(found)
+            {
+                cout << "OK" << endl;
+            }
+            else 
+            {
+                cout << "ACCESS DENIED" << endl; 
+            }
+        }
+        else if(lastCommand == "CHANGE")
+        {
+            name = getName(command);
+
+            //persons name is not the owner
+            if(name != owner)
+            {
+                cout << "ACCESS DENIED" << endl;
+            }
+            else if(home->findPerson(owner,0) == false)
+            {
+                cout << "ACCESS DENIED" << endl;
+            }
+            else if(home->findPerson(owner,0) == true)
+            {
+                keys->deleteKeys();
+                pKey = getKey(command,0);
+                cout << "OK" << endl;
+            }
+            else
+            {
+                cout << "ACCESS DENIED" << endl;
+            }
+
+        }
+
+
+    }
+    /*
     while (getline(cin, line))
     {
         string person;
@@ -146,6 +260,7 @@ int main(int argc, char* argv[])
         //cout << temp << endl;
 
 
+    
         //INSERT KEY adam key
         if(temp.find(insert) != std::string::npos)
         {
@@ -165,7 +280,7 @@ int main(int argc, char* argv[])
              for(int i = 0; i <= argc; i++)
             {
                 //FAILURE adam UNABLE TO TURN KEY key
-                if(pKey != key[i])
+                if(pKey != keys[i])
                 {
                     //if fails result = 0
                     result = 0; 
@@ -210,11 +325,11 @@ int main(int argc, char* argv[])
             home->whosHome();
 
         }
-
+        
        
        line.clear();
     }
-
+    */
     
 
     return 0;

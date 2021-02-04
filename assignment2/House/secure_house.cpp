@@ -108,6 +108,8 @@ int main(int argc, char* argv[])
 
    while(exit == 0)
     {
+      keys->printKeys();
+      //insert command
      if(finalCommand == "INSERTKEY")
       {
        guestName = seperateName(command);
@@ -116,56 +118,56 @@ int main(int argc, char* argv[])
        found = keys->keySearch(keyName,0);
        string isCop;
        if(guestName.size() >= 20)
-	{
+      	{
          isCop = guestName.substr(0,20);
         }
        if(found == true)
-	{
-	 if(keyName == "POLICE_SECRET_KEY" && isCop != "officer_with_warrant")
-	  {
-	   found = false;
-	  }
-	 toEnter = guestName;
-	}
+	      {
+          if(keyName == "POLICE_SECRET_KEY" && isCop != "officer_with_warrant")
+            {
+            found = false;
+            }
+          toEnter = guestName;
+        }
       }
-     else if(finalCommand == "ENTERHOUSE")
-      {
-       guestName = seperateName(command);
-       if(found == true)
-	{
-	 found = false;
-	 if(guestName == toEnter)
-	 {
-	  cout << "ACCESS ALLOWED" << endl;
-	  guests->addGuest(toEnter);
-	 }
-	 else
-	 {
- 	  cout << "ACCESS DENIED" << endl;
-	 }
- 	}  	
-       else
-	{
-  	 cout << "ACCESS DENIED" << endl;
-	}
-      } 
+      else if(finalCommand == "ENTERHOUSE")
+        {
+          guestName = seperateName(command);
+          if(found == true)
+            {
+              found = false;
+              if(guestName == toEnter)
+              {
+                cout << "ACCESS ALLOWED" << endl;
+                guests->addGuest(toEnter);
+              }
+              else
+              {
+                cout << "ACCESS DENIED" << endl;
+              }
+            }  	
+          else
+            {
+              cout << "ACCESS DENIED" << endl;
+            }
+        } 
      else if(finalCommand == "WHO'SINSIDE?")
-	{
-	 guests->printGuests(); 
-	}
+      {
+      guests->printGuests(); 
+      }
      else if(finalCommand == "LEAVEHOUSE")
-	{ 
-	 guestName = seperateName(command);
-	 bool success =  guests->guestSearch(guestName,1);
-	 if(success)
-	  {
-	   cout << "OK" << endl; 
-	  }	
-	 else
-	  {
-	   cout << guestName << " NOT HERE" << endl;
+	  { 
+      guestName = seperateName(command);
+      bool success =  guests->guestSearch(guestName,1);
+      if(success)
+        {
+        cout << "OK" << endl; 
+        }	
+      else
+        {
+        cout << guestName << " NOT HERE" << endl;
+        }
 	  }
-	}
      else if (finalCommand == "CHANGELOCKS")
 	  {
 	   guestName = seperateName(command);
@@ -198,20 +200,20 @@ int main(int argc, char* argv[])
 	  } 
      if(!(getline(cin,inLine)))
       {
-	exit = 1;
-      }
-     if(inLine == "")
-      {
-       exit = 1;
-      }
-     else
-      {
-       command = parseInput(inLine);
-      finalCommand = seperateCommand(command);
-      if(finalCommand == "EXIT")
-       {
         exit = 1;
-       }
       }
-      }
+        if(inLine == "")
+          {
+            exit = 1;
+          }
+        else
+          {
+            command = parseInput(inLine);
+            finalCommand = seperateCommand(command);
+            if(finalCommand == "EXIT")
+            {
+              exit = 1;
+            }
+          }
+    }
 } 
