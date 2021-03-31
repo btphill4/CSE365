@@ -1,0 +1,11 @@
+Your hash for Part 1 MD5:
+3803c84172dbe9afea45eaa081066f1c
+
+Your hash for Part 2 SHA256:
+61035e48e7407f5fb753370ec35e5b2d409cc26b72c81909eff4077aaf2e6769
+
+Your hash for Part 3 bcrypt:
+$2b$12$sGRTikBgTMFd2ZHFFS/rYeQ7gyNUb7xh8G1G8GIqfC3QIi3ltOEGK
+
+Your hash for Part 4 custom:
+b3adcf8b427df867268677028f3a89169c34768f00a8c53b5c7014d7d52072755e035352fa2741b12703ffa6f071f19d1a6bb263d223e47c8ca93105ea1e3cae
