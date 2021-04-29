@@ -1,0 +1,24 @@
+Return address: 0x56163bb09645 
+Base Pointer: 0x7ffdfef148a0
+Stored in: 7ffdfef143b0
+
+Steps:
+0: command: ./Assignment5_stackoverflow2_teaching
+1: Command: gdb Assignment5_stackoverflow2_teaching
+2: Command: (gdb) r (runs the program) tells you where an input signal is
+	    saved
+3: Command: (gdb) ctrl-c
+   output: Program received signal SIGINT, Interrupt.
+0x00007f31c649b142 in __GI___libc_read (fd=0, buf=0x7ffd71eec8a0, nbytes=1488)
+at ../sysdeps/unix/sysv/linux/read.c:26
+26      ../sysdeps/unix/sysv/linux/read.c: No such file or directory.
+
+4: Command: (gdb) x/s $rdi
+	output:0x0:    <error: Cannot access memory at address 0x0>
+5: Command: (gdb) p $rsi
+	output: $1 = 140726514927776
+6: Command: (terminal)140728050659408 ipython
+7: command: (ipython) hex(140726514927776) 
+	output: Out[1]: '0x7ffd71eec8a0' 
+8: command:  (gdb) x/p
+

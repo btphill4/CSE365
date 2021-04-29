@@ -1,0 +1,4 @@
+Curent Return Address: 0x5577e0eae64d
+Base Pointer: 0x7ffffc5d3270
+stored: 7ffffc5d2fa0
+read in: 0x3b0 == 944

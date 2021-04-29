@@ -1,0 +1,8 @@
+python -c "print('A' * 0x430)" > /tmp/aaa
+
+objdump -d ./Assignment5_stackoverflow1
+
+find address with <read@plt> : 0x401509
+
+gdb ./Assigment5_stackoverflow1
+(gdb) 

